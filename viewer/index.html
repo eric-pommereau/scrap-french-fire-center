@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<title>SDIS-center viewer</title>
+
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+		<link rel="stylesheet" href="./js/leaflet.css" />
+
+		<script src="./js/leaflet-src.js"></script>
+		<script src="./js/jquery-2.2.3.min.js"></script>
+
+		<script src="./js/leaflet.groupedlayercontrol.js"></script>
+		<link rel="stylesheet" href="./js/leaflet.groupedlayercontrol.css"></link>
+
+		<script src="./js/leaflet.permalink.js"></script>
+		
+		<script src="./js/overpass.js"></script>
+		<script src="./js/geojson_loader.js"></script>
+		
+	</head>
+	<body>
+		<button onclick="addOverpassApiGroupLayer(mymap, overPassFeatureGroup);">overpass</button>&nbsp;|&nbsp;
+		<button onclick="editInID();">Edit ID</button>
+		<div id="mapid" style="width: 90%; height: 600px;"></div>
+
+		<script>
+			function editInID() {
+				var location = L.Permalink.getMapLocation();
+				var z = location.zoom, y = location.center.lat, x = location.center.lng;
+				var urlTpl = 'http://www.openstreetmap.org/edit?editor=id&node=1912298352#map={z}/{y}/{x}';
+				url = urlTpl.replace('{z}', z).replace('{y}', y).replace('{x}', x);
+				
+				window.open(url, "_blank");
+			}
+			
+            // bretagne : 47.89056441663247, lng: -3.6968994140625004
+            var mymap = L.map('mapid', {
+	            center: [47.890564, -3.69689],
+	            zoom: 12
+	        });
+
+            var wmsLayer = L.tileLayer.wms('http://localhost:8081/service?').addTo(mymap);
+
+			var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+			var osmLayer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: osmAttrib}).addTo(mymap);
+
+            var layers = {
+            	'osm' : osmLayer,
+                'wmsEric' : wmsLayer
+            };
+            
+            var overPassFeatureGroup = L.featureGroup().addTo(mymap);
+            
+			loadGeoJsonAnnuaireLayer(mymap); 
+
+        	L.Permalink.setup(mymap);
+        	
+		</script>
+	</body>
+</html>
+<!--
+            $.ajax({
+                // url : './sdis_centers_2016_10_12.geojson'
+                url : './centres_secours_bdtopo.geojson'
+            }).done(function(datas) {
+                var geojsonMarkerOptions = {
+                    radius : 6,
+                    fillColor : "",
+                    color : "red",
+                    weight : 2,
+                    opacity : 1,
+                    fillOpacity : 0.1
+                };
+
+				function onEachFeature(feature, layer) {
+				    // does this feature have a property named popupContent?
+				    if (feature.properties && feature.properties.adresse) {
+				        layer.bindPopup(
+				        	feature.properties.nom_dept + '<br />' +
+				        	feature.properties.groupement + '<br />' +
+				        	feature.properties.centre + '<br />' + 
+				        	feature.properties.adresse + '<br /><br />' +
+				        	"type de géocodage : " + feature.properties.result_type 
+				        );
+				    }
+				}
+
+                L.geoJSON( jQuery.parseJSON(datas), {
+                	
+                    pointToLayer : function( feature, latlng) {
+                        return L.circleMarker(latlng, geojsonMarkerOptions);
+                    }, 
+                    onEachFeature: onEachFeature
+                }).addTo(mymap);
+
+            });
+
+			$.ajax({
+                url : './sample_overpass_api_quimper.geojson'
+            }).done(function(datas) {
+                var geojsonMarkerOptions = {
+                    radius : 6,
+                    fillColor : "",
+                    color : "blue",
+                    weight : 2,
+                    opacity : 1,
+                    fillOpacity : 0.1
+                };
+
+				function onEachFeature(feature, layer) {
+				    // does this feature have a property named popupContent?
+				    var geojsonMarkerOptions = {
+	                    radius : 6,
+	                    fillColor : "",
+	                    color : "blue",
+	                    weight : 2,
+	                    opacity : 1,
+	                    fillOpacity : 0.1
+	                };
+	                
+					if (feature.properties && feature.properties.name) {
+						layer.bindPopup(
+							'<b>Source OSM</b>' + '<br />' +  
+				        	'name=' + feature.properties.name + '<br />'
+				        );
+					}
+
+					if(feature.geometry.type == 'Polygon') {
+					    try {
+					    	poly = L.polygon(feature.geometry.coordinates);
+					    	latLng = poly.getBounds().getCenter();	
+					    	// console.log(latlng);
+					    	osmWays.push({'latLng':latLng, 'properties':feature.properties});
+					    }catch(e) {
+					    	console.log(e);
+					    }
+				    }
+				}
+
+                osmLayer = L.geoJSON( jQuery.parseJSON(datas), {
+                    pointToLayer : function( feature, latlng) {
+                        return L.circleMarker(latlng, geojsonMarkerOptions);
+                    },
+                    onEachFeature: onEachFeature
+                }).addTo(mymap);
+
+				bd_topo_layer = L.geoJSON( jQuery.parseJSON(datas), {
+                    pointToLayer : function( feature, latlng) {
+                        return L.circleMarker(latlng, geojsonMarkerOptions);
+                    },
+                    onEachFeature: onEachFeature
+                }).addTo(mymap);
+
+			
+
+            });
+
+
+
+			function osmWaysToCircles() {
+				for (i=0;i<osmWays.length;i++) {
+					latLng = osmWays[i].latLng;
+					getOverpassApiDatasJson
+					.addLayer(L.circleMarker([latLng.lng, latLng.lat]));
+				}
+			}
+-->
