@@ -10,7 +10,14 @@ En bleu les données scrappées, en rouge les données OSM (point ou way).
 
 Aider à la saisie des centres de secours dans OSM.
 
-## Fichiers
+## Etapes
+
+* Scrap des adresses
+* Génération d'un premier CSV
+* Géocodage en batch sur la BAN : https://adresse.data.gouv.fr/api/
+* Géocodage manuel des adresses non reconnues par le géocdeur (250 adresses environ)
+
+## Fichiers générés
 
 Attention les géolocalisation sont imprécises, résultat du géocodate la position n'est là qu'à titre indicatif, il faut impérativement valider la présence du centre de secours en observation directe (l'idéal) ou avec l'ortho-photo.
 
