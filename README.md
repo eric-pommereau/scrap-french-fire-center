@@ -4,6 +4,8 @@ Récupération des centres de secours pour aider à cartographier dans OpenStree
 
 ![Screenshot](/img/capture-ecran-viewer_1.png)
 
+En bleu les données scrappées, en rouge les données OSM (point ou way).
+
 ## But
 
 Aider à la saisie des centres de secours dans OSM.
