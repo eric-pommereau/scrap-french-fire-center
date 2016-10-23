@@ -19,7 +19,9 @@ Aider à la saisie des centres de secours dans OSM.
 
 ## Fichiers générés
 
-Attention les géolocalisation sont imprécises, résultat du géocodate la position n'est là qu'à titre indicatif, il faut impérativement valider la présence du centre de secours en observation directe (l'idéal) ou avec l'ortho-photo.
+Attention les géolocalisation sont imprécises, résultat du géocodate la position n'est là qu'à titre indicatif.
+
+Avant la saisie dans OSM, il faut impérativement valider la présence du centre de secours en observation directe (l'idéal) ou avec l'ortho-photo.
 
 * CSV : https://github.com/eric-pommereau/scrap-french-fire-center/raw/master/datas/sdis_centers_final_csv.csv
 * Shapefile : https://github.com/eric-pommereau/scrap-french-fire-center/raw/master/datas/sdis_centers_final_shape.zip
