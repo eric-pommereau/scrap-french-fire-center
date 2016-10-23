@@ -35,6 +35,6 @@ Source : http://www.forum-pompier.com/sujet31121.html
 
 ## Liens
 
-Anuaire SDIS (pompiercenter) : https://www.pompiercenter.com/annuaire-sdis.php
-Page OSM Tag:amenity=fire_station : http://wiki.openstreetmap.org/wiki/FR:Tag:amenity%3Dfire_station
+* Anuaire SDIS (pompiercenter) : https://www.pompiercenter.com/annuaire-sdis.php
+* Page OSM Tag:amenity=fire_station : http://wiki.openstreetmap.org/wiki/FR:Tag:amenity%3Dfire_station
 
